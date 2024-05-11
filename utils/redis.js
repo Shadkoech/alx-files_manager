@@ -12,7 +12,7 @@ class RedisClient {
 
     // Checking if client is connected to Redis
     isAlive() {
-        return this.client.connected;
+        return this.client.connected && this.client.ready;
     }
 
     async get(key) {
