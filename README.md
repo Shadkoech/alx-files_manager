@@ -1,3 +1,5 @@
 # Files manager
 
 ## Overview
+
+## Concepts
