@@ -1,4 +1,5 @@
 const { MongoClient } = require('mongodb');
+// const { ObjectId } = require('mongodb');
 
 class DBClient {
   constructor() {
@@ -33,6 +34,19 @@ class DBClient {
     const collection = db.collection('files');
     const count = await collection.countDocuments();
     return count;
+  }
+
+  async getUserByEmail(email) {
+    const db = this.client.db();
+    const collection = db.collection('users');
+    return collection.findOne({ email });
+  }
+
+  async insertUser(user) {
+    const db = this.client.db();
+    const collection = db.collection('users');
+    const result = await collection.insertOne(user);
+    return result.ops[0];
   }
 }
 
