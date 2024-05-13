@@ -1,5 +1,5 @@
 const { MongoClient } = require('mongodb');
-// const { ObjectId } = require('mongodb');
+const { ObjectId } = require('mongodb');
 
 class DBClient {
   constructor() {
@@ -53,6 +53,12 @@ class DBClient {
     const db = this.client.db();
     const collection = db.collection('users');
     return collection.findOne({ email, password });
+  }
+
+  async getUserById(id) {
+    const db = this.client.db();
+    const collection = db.collection('users');
+    return collection.findOne({ _id: new ObjectId(id) });
   }
 }
 
