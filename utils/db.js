@@ -48,6 +48,12 @@ class DBClient {
     const result = await collection.insertOne(user);
     return result.ops[0];
   }
+
+  async getUserByEmailAndPassword(email, password) {
+    const db = this.client.db();
+    const collection = db.collection('users');
+    return collection.findOne({ email, password });
+  }
 }
 
 const dbClient = new DBClient();
