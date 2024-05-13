@@ -12,7 +12,7 @@ class AuthController {
     }
     const encodedCredentials = authHeader.slice('Basic '.length);
     const decodedCredentials = Buffer.from(encodedCredentials, 'base64').toString('utf-8');
-    
+
     const [email, password] = decodedCredentials.split(':');
     if (!email || !password) {
       return res.status(401).json({ error: 'Unauthorized' });
@@ -38,7 +38,7 @@ class AuthController {
       return res.status(401).json({ error: 'Unauthorized' });
     }
     await redisClient.del(`auth_${token}`);
-    return res.status(204).send()
+    return res.status(204).send();
   }
 }
 module.exports = AuthController;
