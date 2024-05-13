@@ -12,9 +12,10 @@ class AuthController {
     }
     const encodedCredentials = authHeader.slice('Basic '.length);
     const decodedCredentials = Buffer.from(encodedCredentials, 'base64').toString('utf-8');
+    
     const [email, password] = decodedCredentials.split(':');
     if (!email || !password) {
-      return res.status(400).json({ error: 'Missing email or password' });
+      return res.status(401).json({ error: 'Unauthorized' });
     }
     const user = await dbClient.getUserByEmailAndPassword(email, sha1(password));
     if (!user) {
@@ -22,7 +23,7 @@ class AuthController {
     }
 
     const token = uuidv4();
-    await redisClient.set(`auth_${token}`, user._id, 60 * 60 * 24);
+    await redisClient.set(`auth_${token}`, user._id.toString(), 86400);
 
     return res.status(200).json({ token });
   }
@@ -37,7 +38,7 @@ class AuthController {
       return res.status(401).json({ error: 'Unauthorized' });
     }
     await redisClient.del(`auth_${token}`);
-    return res.status(204).end();
+    return res.status(204).send()
   }
 }
 module.exports = AuthController;
