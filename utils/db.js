@@ -66,12 +66,11 @@
 
 // module.exports = dbClient;
 
-
 const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
-const fs = require('fs');
-const path = require('path');
-const { v4: uuidv4 } = require('uuid');
+// const fs = require('fs');
+// const path = require('path');
+// const { v4: uuidv4 } = require('uuid');
 
 class DBClient {
   constructor() {
@@ -92,7 +91,7 @@ class DBClient {
 
   isAlive() {
     return this.client.isConnected();
-  }   
+  }
 
   async nbUsers() {
     const db = this.client.db();
@@ -144,6 +143,13 @@ class DBClient {
     const db = this.client.db();
     const collection = db.collection('files');
     await collection.updateOne({ _id: new ObjectId(fileId) }, { $set: { localPath } });
+  }
+
+  async createFile(file) {
+    const db = this.client.db();
+    const collection = db.collection('files');
+    const result = await collection.insertOne(file);
+    return result.ops[0];
   }
 }
 
