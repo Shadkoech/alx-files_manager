@@ -174,7 +174,6 @@ class DBClient {
     const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: file });
     return result;
   }
-  
 }
 
 const dbClient = new DBClient();
