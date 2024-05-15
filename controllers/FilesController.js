@@ -1,7 +1,3 @@
-// const mime = require('mime');
-// const { default: mime } = await import('mime');
-import * as mime from 'mime';
-
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
 const path = require('path');
@@ -236,37 +232,7 @@ class FilesController {
   //   res.set('Content-Type', mimeType);
   //   fs.createReadStream(localPath).pipe(res);
   // }
-  // return res.status(200).json("success")
-  static async getFile(req, res) {
-    const fileId = req.params.id;
-    const token = req.headers['x-token'];
-    const file = await dbClient.getFileById(fileId);
-    const userId = await redisClient.get(`auth_${token}`);
-    if (!userId) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
-    const { isPublic } = file;
-    if (!file || (file.userId !== userId && !isPublic)) {
-      return res.status(404).json({ error: 'Not found' });
-    }
-    const { type } = file;
-    if (type === 'folder') {
-      return res.status(400).json({ error: 'A folder doesn\'t have content' });
-    }
-
-    const { localPath } = file;
-    if (!fs.existsSync(localPath)) {
-      return res.status(404).json({ error: 'Not found' });
-    }
-    // const mimeType = mime.lookup(file.name) || 'application/octet-stream';
-    // res.set('Content-Type', mimeType);
-    // fs.createReadStream(localPath).pipe(res);
-    const mimeType = mime.lookup(file.name) || 'application/octet-stream';
-    const fileContent = fs.readFileSync(localPath);
-
-    res.set('Content-Type', mimeType);
-    return res.send(fileContent);
-  }
+  // // return res.status(200).json("success")
 }
 
 module.exports = FilesController;
