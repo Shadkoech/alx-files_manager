@@ -167,6 +167,13 @@ class DBClient {
 
     return this.client.db().collection('files').aggregate(aggregationPipeline).toArray();
   }
+
+  async updateFile(id, file) {
+    const db = this.client.db();
+    const collection = db.collection('files');
+    const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: file });
+    return result;
+  }
 }
 
 const dbClient = new DBClient();

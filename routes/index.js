@@ -18,5 +18,7 @@ router.get('/files/:id', FilesController.getShow);
 router.get('/files', FilesController.getIndex);
 // Endpoint that uploads files
 router.post('/files', FilesController.postUpload);
+router.put('/files/:id/publish', FilesController.putPublish);
+router.put('/files/:id/unpublish', FilesController.putUnpublish);
 
 module.exports = router;
