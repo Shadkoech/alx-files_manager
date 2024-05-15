@@ -151,6 +151,22 @@ class DBClient {
     const result = await collection.insertOne(file);
     return result.ops[0];
   }
+
+  async getFileById(id) {
+    const db = this.client.db();
+    const collection = db.collection('files');
+    return collection.findOne({ _id: new ObjectId(id) });
+  }
+
+  async getFilesByParentId(userId, parentId, skip, limit) {
+    const aggregationPipeline = [
+      { $match: { userId, parentId } },
+      { $skip: skip },
+      { $limit: limit },
+    ];
+
+    return this.client.db().collection('files').aggregate(aggregationPipeline).toArray();
+  }
 }
 
 const dbClient = new DBClient();
