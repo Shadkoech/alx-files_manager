@@ -3,7 +3,7 @@
 ## Overview
 This project gives a hands-on experience with various technologies and concepts such as authentication, Node.js, MongoDB, Redis, pagination, and background processing. The project aims to build a simple platform for uploading and viewing files. It includes features for user authentication via tokens, listing files, uploading new files, changing file permissions, viewing files, and generating thumbnails for images. While similar services exist in real life, this project serves as a learning exercise to assemble and implement each component into a functional product.
 
-## Project structure
+## Introduction
 The project consists of multiple tasks, each focusing on a specific aspect of back-end development. These tasks include creating utilities for Redis and MongoDB, setting up an Express server, implementing user authentication, managing file uploads, and handling file operations such as publishing, unpublishing, and retrieving file data.
 
 ## Technologies to be applied
@@ -36,11 +36,11 @@ The project consists of multiple tasks, each focusing on a specific aspect of ba
 ## Project Structure
 The project is made of the following components:
 
-`utils/`: Contains utility files for interacting with Redis and MongoDB.
-`routes/`: Defines API endpoints for the project.
-`controllers/`: Contains controller logic for handling API requests.
-`server.js`: Express server setup file.
-`package.json`: npm package configuration file.
+* `utils/`: Contains utility files for interacting with Redis and MongoDB.
+* `routes/`: Defines API endpoints for the project.
+* `controllers/`: Contains controller logic for handling API requests.
+* `server.js`: Express server setup file.
+* `package.json`: npm package configuration file.
 
 ## Available end-points
 
